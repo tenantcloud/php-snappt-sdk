@@ -48,6 +48,6 @@ class TestCase extends BaseTestCase
 			$client
 		));
 
-		return $this->app->make(SnapptClientImpl::class);
+		return $this->app->make(SnapptClient::class);
 	}
 }

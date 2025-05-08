@@ -6,7 +6,8 @@
 		"php": ">=8.2",
 		"illuminate/contracts": "^9.0|^10.0",
 		"guzzlehttp/guzzle": "^7.9",
-		"tenantcloud/guzzle-helper": "^1.5"
+		"tenantcloud/guzzle-helper": "^1.5",
+		"tenantcloud/data-transfer-objects": "^1.6"
 	},
 	"require-dev": {
 		"pestphp/pest": "^2.8",

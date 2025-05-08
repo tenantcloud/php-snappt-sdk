@@ -2,4 +2,10 @@
 
 namespace TenantCloud\Snappt\Applicants;
 
-interface ApplicantsApi {}
+use TenantCloud\Snappt\Applicants\DTO\CreateSessionDTO;
+use TenantCloud\Snappt\Applicants\DTO\SessionDTO;
+
+interface ApplicantsApi
+{
+	public function createSession(CreateSessionDTO $createSessionDTO): SessionDTO;
+}
