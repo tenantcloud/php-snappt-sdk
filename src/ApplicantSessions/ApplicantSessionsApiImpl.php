@@ -1,13 +1,13 @@
 <?php
 
-namespace TenantCloud\Snappt\Applicants;
+namespace TenantCloud\Snappt\ApplicantSession;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
-use TenantCloud\Snappt\Applicants\DTO\CreateSessionDTO;
-use TenantCloud\Snappt\Applicants\DTO\SessionDTO;
-use TenantCloud\Snappt\Applicants\DTO\UpdateApplicationDTO;
+use TenantCloud\Snappt\ApplicantSession\DTO\CreateSessionDTO;
+use TenantCloud\Snappt\ApplicantSession\DTO\SessionDTO;
+use TenantCloud\Snappt\ApplicantSession\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\Client\RequestHelper;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 

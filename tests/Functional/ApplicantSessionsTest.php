@@ -2,9 +2,9 @@
 
 namespace Tests\Functional;
 
-use TenantCloud\Snappt\Applicants\DTO\CreateSessionDTO;
-use TenantCloud\Snappt\Applicants\DTO\UpdateApplicationDTO;
-use TenantCloud\Snappt\Applicants\Enum\ApplicationType;
+use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
+use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
+use TenantCloud\Snappt\ApplicantSessions\Enum\ApplicationType;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use Tests\TestCase;
 
@@ -25,7 +25,7 @@ class ApplicantsTest extends TestCase
 			->setLastName($this->faker->lastName())
 			->setEmail($this->faker->email());
 
-		$session = $snapptClient->applicants()->createSession($createSessionDto);
+		$session = $snapptClient->applicantSessions()->createSession($createSessionDto);
 
 		$this->assertSame('321ca6da-7915-4c2b-81cf-4ab5f3fcf298', $session->getId());
 		$this->assertSame('48f575a7-83ee-4b79-8dd1-e6bfaa86445d', $session->getToken());
@@ -53,7 +53,7 @@ class ApplicantsTest extends TestCase
 			->setApplicantDetailId($applicantDetailId = 'ce1ec936-3135-4f84-8e1f-6310e55d7db6')
 			->setPropertyShortId($propertyShortId = 'hRFs404isW');
 
-		$application = $snapptClient->applicants()->updateApplication($updateApplicationDTO);
+		$application = $snapptClient->applicantSessions()->updateApplication($updateApplicationDTO);
 
 		$this->assertSame($id, $application->getId());
 		$this->assertSame($type->value, $application->getType());
@@ -79,6 +79,6 @@ class ApplicantsTest extends TestCase
 		$this->expectException(ErrorResponseException::class);
 		$this->expectExceptionMessage('Received error response from API "/session/application". Error: error message');
 
-		$snapptClient->applicants()->updateApplication(UpdateApplicationDTO::create());
+		$snapptClient->applicantSessions()->updateApplication(UpdateApplicationDTO::create());
 	}
 }

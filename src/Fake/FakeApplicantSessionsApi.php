@@ -2,6 +2,6 @@
 
 namespace TenantCloud\Snappt\Fake;
 
-use TenantCloud\Snappt\Applicants\ApplicantsApi;
+use TenantCloud\Snappt\ApplicantSession\ApplicantsApi;
 
 class FakeApplicantsApi implements ApplicantsApi {}

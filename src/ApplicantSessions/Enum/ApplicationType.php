@@ -1,6 +1,6 @@
 <?php
 
-namespace TenantCloud\Snappt\Applicants\Enum;
+namespace TenantCloud\Snappt\ApplicantSession\Enum;
 
 enum ApplicationType: string
 {
