@@ -4,7 +4,9 @@
 	"license": "MIT",
 	"require": {
 		"php": ">=8.2",
-		"illuminate/contracts": "^9.0|^10.0"
+		"illuminate/contracts": "^9.0|^10.0",
+		"guzzlehttp/guzzle": "^7.9",
+		"tenantcloud/guzzle-helper": "^1.5"
 	},
 	"require-dev": {
 		"pestphp/pest": "^2.8",
@@ -44,7 +46,7 @@
 	"extra": {
 		"laravel": {
 			"providers": [
-				"TenantCloud\\Snappt\\SnapptServiceProvider"
+				"SnapptSdkServiceProvider"
 			]
 		}
 	}
