@@ -23,6 +23,7 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 	private const CREATE_SESSION_API = '/session';
 	private const UPDATE_SESSION_API = '/session/application';
 	private const UPLOAD_DOCUMENT_API = '/session/documents';
+	private const SUBMIT_API = '/session/submit';
 
 	public function __construct(
 		private readonly Client $httpClient,
@@ -116,5 +117,19 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 		}
 
 		return DocumentDTO::from($response);
+	}
+
+	public function submit(string $sessionToken): string
+	{
+		$jsonResponse = $this->httpClient->post(
+			self::SUBMIT_API,
+			[
+				RequestOptions::HEADERS => $this->setUnauthenticatedSessionToken($sessionToken),
+			]
+		);
+
+		$response = (array) psr_response_to_json($jsonResponse);
+
+		return $response['applicantId'];
 	}
 }

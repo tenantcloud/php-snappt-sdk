@@ -15,4 +15,6 @@ interface ApplicantSessionsApi
 	public function updateApplication(UpdateApplicationDTO $updateApplicationDTO, string $sessionToken): UpdateApplicationDTO;
 
 	public function uploadDocument(DocumentType $documentType, string $sessionToken, string $filePath): DocumentDTO;
+
+	public function submit(string $sessionToken): string;
 }

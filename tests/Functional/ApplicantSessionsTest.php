@@ -148,4 +148,16 @@ class ApplicantSessionsTest extends TestCase
 				__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
 			);
 	}
+
+	public function testSubmitSuccess(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/applicant-sessions/submit.json')
+		);
+
+		$applicantId = $snapptClient->applicantSessions()->submit('session-token');
+
+		$this->assertSame('cffe49a5-bfe3-4d3c-a51e-7a44a94dbd27', $applicantId);
+	}
 }
