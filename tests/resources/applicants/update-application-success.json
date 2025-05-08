@@ -1,0 +1,15 @@
+{
+	"id": "321ca6da-7915-4c2b-81cf-4ab5f3fcf298",
+	"type": "unauthenticated_user",
+	"unit": "unit 123",
+	"firstName": "John",
+	"middleInitial": "JD",
+	"lastName": "Doe",
+	"email": "johndoe@gmail.com",
+	"notificationEmail": "johndoe@gmail.com",
+	"phone": "188888888",
+	"hasPreviouslySubmitted": null,
+	"metadata": null,
+	"applicantDetailId": "ce1ec936-3135-4f84-8e1f-6310e55d7db6",
+	"propertyShortId": "hRFs404isW"
+}

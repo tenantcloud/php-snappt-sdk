@@ -7,6 +7,7 @@ use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
 use TenantCloud\Snappt\Applicants\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\Applicants\DTO\SessionDTO;
+use TenantCloud\Snappt\Applicants\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\Client\RequestHelper;
 
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
@@ -16,6 +17,7 @@ class ApplicantsApiImpl implements ApplicantsApi
 	use RequestHelper;
 
 	private const CREATE_SESSION_API = '/session';
+	private const UPDATE_SESSION_API = '/session/application';
 
 	public function __construct(
 		private readonly Client $httpClient,
@@ -41,5 +43,20 @@ class ApplicantsApiImpl implements ApplicantsApi
 		$response = (array) psr_response_to_json($jsonResponse);
 
 		return SessionDTO::from($response);
+	}
+
+	public function updateApplication(UpdateApplicationDTO $updateApplicationDTO): UpdateApplicationDTO
+	{
+		$jsonResponse = $this->httpClient->post(
+			self::UPDATE_SESSION_API,
+			[
+				RequestOptions::HEADERS => $this->setUnauthenticatedSessionToken($this->apiKey),
+				RequestOptions::JSON    => $updateApplicationDTO->toArray(),
+			]
+		);
+
+		$response = (array) psr_response_to_json($jsonResponse);
+
+		return UpdateApplicationDTO::from($response);
 	}
 }

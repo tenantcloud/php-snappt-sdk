@@ -10,4 +10,11 @@ trait RequestHelper
 			'Authorization' => 'Bearer ' . $apiKey,
 		];
 	}
+
+	public function setUnauthenticatedSessionToken(string $sessionToken): array
+	{
+		return [
+			'x-unauthenticated-session-token' => $sessionToken,
+		];
+	}
 }
