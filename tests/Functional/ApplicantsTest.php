@@ -5,6 +5,7 @@ namespace Tests\Functional;
 use TenantCloud\Snappt\Applicants\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\Applicants\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\Applicants\Enum\ApplicationType;
+use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use Tests\TestCase;
 
 class ApplicantsTest extends TestCase
@@ -66,5 +67,18 @@ class ApplicantsTest extends TestCase
 		$this->assertSame($hasPreviouslySubmitted, $application->getHasPreviouslySubmitted());
 		$this->assertSame($applicantDetailId, $application->getApplicantDetailId());
 		$this->assertSame($propertyShortId, $application->getPropertyShortId());
+	}
+
+	public function testUpdateApplicationError(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/applicants/update-application-error.json')
+		);
+
+		$this->expectException(ErrorResponseException::class);
+		$this->expectExceptionMessage('Received error response from API "/session/application". Error: error message');
+
+		$snapptClient->applicants()->updateApplication(UpdateApplicationDTO::create());
 	}
 }

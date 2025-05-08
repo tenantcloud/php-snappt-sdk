@@ -9,6 +9,7 @@ use TenantCloud\Snappt\Applicants\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\Applicants\DTO\SessionDTO;
 use TenantCloud\Snappt\Applicants\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\Client\RequestHelper;
+use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
@@ -56,6 +57,12 @@ class ApplicantsApiImpl implements ApplicantsApi
 		);
 
 		$response = (array) psr_response_to_json($jsonResponse);
+
+		if (Arr::has($response, 'error')) {
+			$errorMessage = sprintf('Received error response from API "%s". Error: %s', self::UPDATE_SESSION_API, $response['error']);
+
+			throw new ErrorResponseException($errorMessage);
+		}
 
 		return UpdateApplicationDTO::from($response);
 	}
