@@ -2,13 +2,13 @@
 
 namespace TenantCloud\Snappt\Fake;
 
-use TenantCloud\Snappt\Applicants\ApplicantsApi;
+use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApi;
 use TenantCloud\Snappt\Client\SnapptClient;
 
 class FakeSnapptClient implements SnapptClient
 {
-	public function applicants(): ApplicantsApi
+	public function applicantSessions(): ApplicantSessionsApi
 	{
-		return new FakeApplicantsApi();
+		return new FakeApplicantSessionsApi();
 	}
 }

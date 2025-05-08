@@ -1,19 +1,19 @@
 <?php
 
-namespace TenantCloud\Snappt\ApplicantSession;
+namespace TenantCloud\Snappt\ApplicantSessions;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
-use TenantCloud\Snappt\ApplicantSession\DTO\CreateSessionDTO;
-use TenantCloud\Snappt\ApplicantSession\DTO\SessionDTO;
-use TenantCloud\Snappt\ApplicantSession\DTO\UpdateApplicationDTO;
+use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
+use TenantCloud\Snappt\ApplicantSessions\DTO\SessionDTO;
+use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\Client\RequestHelper;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
-class ApplicantsApiImpl implements ApplicantsApi
+class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 {
 	use RequestHelper;
 

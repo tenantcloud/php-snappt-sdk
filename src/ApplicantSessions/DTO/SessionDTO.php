@@ -1,6 +1,6 @@
 <?php
 
-namespace TenantCloud\Snappt\ApplicantSession\DTO;
+namespace TenantCloud\Snappt\ApplicantSessions\DTO;
 
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 

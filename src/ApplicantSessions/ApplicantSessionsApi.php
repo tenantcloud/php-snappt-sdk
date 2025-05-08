@@ -1,12 +1,12 @@
 <?php
 
-namespace TenantCloud\Snappt\ApplicantSession;
+namespace TenantCloud\Snappt\ApplicantSessions;
 
-use TenantCloud\Snappt\ApplicantSession\DTO\CreateSessionDTO;
-use TenantCloud\Snappt\ApplicantSession\DTO\SessionDTO;
-use TenantCloud\Snappt\ApplicantSession\DTO\UpdateApplicationDTO;
+use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
+use TenantCloud\Snappt\ApplicantSessions\DTO\SessionDTO;
+use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 
-interface ApplicantsApi
+interface ApplicantSessionsApi
 {
 	public function createSession(CreateSessionDTO $createSessionDTO): SessionDTO;
 

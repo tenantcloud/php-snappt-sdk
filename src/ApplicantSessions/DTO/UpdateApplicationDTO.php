@@ -1,9 +1,9 @@
 <?php
 
-namespace TenantCloud\Snappt\ApplicantSession\DTO;
+namespace TenantCloud\Snappt\ApplicantSessions\DTO;
 
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
-use TenantCloud\Snappt\ApplicantSession\Enum\ApplicationType;
+use TenantCloud\Snappt\ApplicantSessions\Enum\ApplicationType;
 
 /**
  * @method self   	   setId(string $id)

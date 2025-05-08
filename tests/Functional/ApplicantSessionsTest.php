@@ -8,13 +8,13 @@ use TenantCloud\Snappt\ApplicantSessions\Enum\ApplicationType;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use Tests\TestCase;
 
-class ApplicantsTest extends TestCase
+class ApplicantSessionsTest extends TestCase
 {
 	public function testCreateSessionSuccess(): void
 	{
 		$snapptClient = $this->mockResponse(
 			200,
-			(string) file_get_contents(__DIR__ . '/../resources/applicants/session.json')
+			(string) file_get_contents(__DIR__ . '/../resources/applicant-sessions/session.json')
 		);
 
 		$createSessionDto = CreateSessionDTO::create()
@@ -36,7 +36,7 @@ class ApplicantsTest extends TestCase
 	{
 		$snapptClient = $this->mockResponse(
 			200,
-			(string) file_get_contents(__DIR__ . '/../resources/applicants/update-application-success.json')
+			(string) file_get_contents(__DIR__ . '/../resources/applicant-sessions/update-application-success.json')
 		);
 
 		$updateApplicationDTO = UpdateApplicationDTO::create()
@@ -73,7 +73,7 @@ class ApplicantsTest extends TestCase
 	{
 		$snapptClient = $this->mockResponse(
 			200,
-			(string) file_get_contents(__DIR__ . '/../resources/applicants/update-application-error.json')
+			(string) file_get_contents(__DIR__ . '/../resources/applicant-sessions/update-application-error.json')
 		);
 
 		$this->expectException(ErrorResponseException::class);

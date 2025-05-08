@@ -2,9 +2,9 @@
 
 namespace TenantCloud\Snappt\Client;
 
-use TenantCloud\Snappt\Applicants\ApplicantsApi;
+use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApi;
 
 interface SnapptClient
 {
-	public function applicants(): ApplicantsApi;
+	public function applicantSessions(): ApplicantSessionsApi;
 }
