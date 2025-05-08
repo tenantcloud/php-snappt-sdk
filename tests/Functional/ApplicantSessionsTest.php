@@ -2,9 +2,11 @@
 
 namespace Tests\Functional;
 
+use InvalidArgumentException;
 use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\ApplicantSessions\Enum\ApplicationType;
+use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use Tests\TestCase;
 
@@ -42,8 +44,8 @@ class ApplicantSessionsTest extends TestCase
 		$updateApplicationDTO = UpdateApplicationDTO::create()
 			->setId($id = '321ca6da-7915-4c2b-81cf-4ab5f3fcf298')
 			->setType($type = ApplicationType::UNAUTHENTICATED_USER)
-			->setUnit($unit ='unit 123')
-			->setFirstName($firstName ='John')
+			->setUnit($unit = 'unit 123')
+			->setFirstName($firstName = 'John')
 			->setMiddleInitial($middleInitial = 'JD')
 			->setLastName($lastName = 'Doe')
 			->setEmail($email = 'johndoe@gmail.com')
@@ -53,7 +55,7 @@ class ApplicantSessionsTest extends TestCase
 			->setApplicantDetailId($applicantDetailId = 'ce1ec936-3135-4f84-8e1f-6310e55d7db6')
 			->setPropertyShortId($propertyShortId = 'hRFs404isW');
 
-		$application = $snapptClient->applicantSessions()->updateApplication($updateApplicationDTO);
+		$application = $snapptClient->applicantSessions()->updateApplication($updateApplicationDTO, 'session-token');
 
 		$this->assertSame($id, $application->getId());
 		$this->assertSame($type->value, $application->getType());
@@ -79,6 +81,71 @@ class ApplicantSessionsTest extends TestCase
 		$this->expectException(ErrorResponseException::class);
 		$this->expectExceptionMessage('Received error response from API "/session/application". Error: error message');
 
-		$snapptClient->applicantSessions()->updateApplication(UpdateApplicationDTO::create());
+		$snapptClient->applicantSessions()->updateApplication(UpdateApplicationDTO::create(), 'session-token');
+	}
+
+	public function testUploadDocumentSuccess(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/applicant-sessions/upload-document-success.json')
+		);
+
+		$document = $snapptClient
+			->applicantSessions()
+			->uploadDocument(
+				DocumentType::PAY_STUB,
+				'session-token',
+				__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
+			);
+
+		$this->assertSame('bc535bcf-811e-45b3-84a2-112de8a5430e', $document->getId());
+		$this->assertSame('1537 Corinth Checking.pdf', $document->getFileName());
+		$this->assertSame('321ca6da-7915-4c2b-81cf-4ab5f3fcf298', $document->getUnauthenticatedSessionId());
+		$this->assertSame('2025-05-08T13:39:43.386Z', $document->getInsertedAt());
+		$this->assertSame('PAYSTUB', $document->getType());
+		$this->assertSame('SUCCESS', $document->getProcessStatus());
+		$this->assertSame('PENDING', $document->getResult());
+	}
+
+	public function testUploadDocumentErrorFileNotExists(): void
+	{
+		$snapptClient = $this->mockResponse(200);
+
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('File not found at path: not-exists-document.pdf');
+
+		$snapptClient
+			->applicantSessions()
+			->uploadDocument(
+				DocumentType::PAY_STUB,
+				'session-token',
+				'not-exists-document.pdf',
+			);
+	}
+
+	public function testUploadDocumentError(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/applicant-sessions/upload-document-error.json')
+		);
+
+		$this->expectException(ErrorResponseException::class);
+		$this->expectExceptionMessage(sprintf(
+			'Received error response from API "%s". Error: %s. Status code: %s. Failed checks: %s',
+			'/session/documents',
+			'error message',
+			1111,
+			'failed check 1, failed check 2'
+		));
+
+		$snapptClient
+			->applicantSessions()
+			->uploadDocument(
+				DocumentType::PAY_STUB,
+				'session-token',
+				__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
+			);
 	}
 }

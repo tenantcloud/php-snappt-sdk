@@ -1,0 +1,8 @@
+{
+	"statusCode": 1111,
+	"error": "error message",
+	"failedChecks": [
+		"failed check 1",
+		"failed check 2"
+	]
+}
