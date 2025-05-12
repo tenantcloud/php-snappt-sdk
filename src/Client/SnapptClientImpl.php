@@ -9,6 +9,8 @@ use Psr\Log\LoggerInterface;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
 use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApi;
 use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApiImpl;
+use TenantCloud\Snappt\Properties\PropertiesApi;
+use TenantCloud\Snappt\Properties\PropertiesApiImpl;
 
 class SnapptClientImpl implements SnapptClient
 {
@@ -27,6 +29,7 @@ class SnapptClientImpl implements SnapptClient
 		$stack->unshift(GuzzleMiddleware::fullErrorResponseBody());
 
 		// Hide secret info from error responses.
+		// todo:
 		$stack->unshift(GuzzleMiddleware::dumpRequestBody());
 
 		if ($logger) {
@@ -44,5 +47,10 @@ class SnapptClientImpl implements SnapptClient
 	public function applicantSessions(): ApplicantSessionsApi
 	{
 		return new ApplicantSessionsApiImpl($this->httpClient, $this->apiKey);
+	}
+
+	public function properties(): PropertiesApi
+	{
+		return new PropertiesApiImpl($this->httpClient, $this->apiKey);
 	}
 }
