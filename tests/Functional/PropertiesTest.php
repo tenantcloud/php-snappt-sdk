@@ -13,6 +13,31 @@ use Tests\TestCase;
 
 class PropertiesTest extends TestCase
 {
+	public function testGetPropertySuccess(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/properties/property-success.json')
+		);
+
+		$property = $snapptClient->properties()->get('529c5f44-c1b5-47dd-afc8-42dc2941f61e');
+
+		$this->assertSame('529c5f44-c1b5-47dd-afc8-42dc2941f61e', $property->getId());
+	}
+
+	public function testGetPropertyError(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/properties/get-error.json')
+		);
+
+		$this->expectException(ErrorResponseException::class);
+		$this->expectExceptionMessage('Received error response from API "/properties/529c5f44-c1b5-47dd-afc8-42dc2941f61e". {"error":"error message"}');
+
+		$snapptClient->properties()->get('529c5f44-c1b5-47dd-afc8-42dc2941f61e');
+	}
+
 	#[DataProvider('createPropertySuccessProvider')]
 	public function testCreatePropertySuccess(string $fileName, CreatePropertyDTO $createPropertyDto, callable $assertion): void
 	{
@@ -29,7 +54,7 @@ class PropertiesTest extends TestCase
 	public static function createPropertySuccessProvider(): iterable
 	{
 		yield 'create property with min data' => [
-			'min-property-created.json',
+			'create-property-min-success.json',
 			CreatePropertyDTO::create()
 				->setName('Test property name')
 				->setEmail('test@gmail.com')
@@ -71,7 +96,7 @@ class PropertiesTest extends TestCase
 		];
 
 		yield 'create property with max data' => [
-			'max-property-created.json',
+			'create-property-max-success.json',
 			CreatePropertyDTO::create()
 				->setName('Test property name')
 				->setEmail('test@gmail.com')
@@ -135,7 +160,7 @@ class PropertiesTest extends TestCase
 	{
 		$snapptClient = $this->mockResponse(
 			200,
-			(string) file_get_contents(__DIR__ . '/../resources/properties/property-error.json')
+			(string) file_get_contents(__DIR__ . '/../resources/properties/create-property-error.json')
 		);
 
 		$this->expectException(ErrorResponseException::class);
@@ -148,7 +173,7 @@ class PropertiesTest extends TestCase
 	{
 		$snapptClient = $this->mockResponse(
 			200,
-			(string) file_get_contents(__DIR__ . '/../resources/properties/enable-income-verification-success.json')
+			(string) file_get_contents(__DIR__ . '/../resources/properties/property-success.json')
 		);
 
 		$property = $snapptClient->properties()->enableIncomeVerification('529c5f44-c1b5-47dd-afc8-42dc2941f61e', true);

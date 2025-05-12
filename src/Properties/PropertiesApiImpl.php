@@ -15,6 +15,7 @@ class PropertiesApiImpl implements PropertiesApi
 {
 	use RequestHelper;
 
+	private const GET_PROPERTY_API = '/properties/%s';
 	private const CREATE_PROPERTY_API = '/properties';
 	private const ENABLE_INCOME_VERIFICATION = '/properties/%s/income-verification';
 
@@ -22,6 +23,26 @@ class PropertiesApiImpl implements PropertiesApi
 		private readonly Client $httpClient,
 		private readonly string $apiKey,
 	) {}
+
+	public function get(string $propertyId): PropertyDTO
+	{
+		$url = sprintf(self::GET_PROPERTY_API, $propertyId);
+
+		$jsonResponse = $this->httpClient->get(
+			$url,
+			[
+				RequestOptions::HEADERS => $this->setAuthHeader($this->apiKey),
+			]
+		);
+
+		$response = (array) psr_response_to_json($jsonResponse);
+
+		if (Arr::has($response, 'error')) {
+			throw new ErrorResponseException($url, json_encode($response));
+		}
+
+		return PropertyDTO::from($response);
+	}
 
 	public function create(CreatePropertyDTO $propertyDTO): PropertyDTO
 	{

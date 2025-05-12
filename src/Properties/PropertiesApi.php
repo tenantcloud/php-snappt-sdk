@@ -7,6 +7,8 @@ use TenantCloud\Snappt\Properties\DTO\PropertyDTO;
 
 interface PropertiesApi
 {
+	public function get(string $propertyId): PropertyDTO;
+
 	public function create(CreatePropertyDTO $propertyDTO): PropertyDTO;
 
 	public function enableIncomeVerification(string $propertyId, bool $enabled): PropertyDTO;
