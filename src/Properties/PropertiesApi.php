@@ -9,5 +9,5 @@ interface PropertiesApi
 {
 	public function create(CreatePropertyDTO $propertyDTO): PropertyDTO;
 
-	public function enableIncomeVerification(string $propertyId, bool $enabled);
+	public function enableIncomeVerification(string $propertyId, bool $enabled): PropertyDTO;
 }

@@ -96,7 +96,7 @@ class PropertiesTest extends TestCase
 						->setPayrollStatement(1)
 				)
 				->setIdentityVerificationReportImageTypes([
-					IdentityVerificationReportImageType::SELFIE
+					IdentityVerificationReportImageType::SELFIE,
 				]),
 			function (PropertyDTO $property) {
 				self::assertSame('Test property name', $property->getName());
@@ -142,5 +142,30 @@ class PropertiesTest extends TestCase
 		$this->expectExceptionMessage('Received error response from API "/properties". {"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
 
 		$snapptClient->properties()->create(CreatePropertyDTO::create());
+	}
+
+	public function testEnableIncomeVerificationSuccess(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/properties/enable-income-verification-success.json')
+		);
+
+		$property = $snapptClient->properties()->enableIncomeVerification('529c5f44-c1b5-47dd-afc8-42dc2941f61e', true);
+
+		$this->assertTrue($property->getIncomeVerificationEnabled());
+	}
+
+	public function testEnableIncomeVerificationError(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/properties/enable-income-verification-error.json')
+		);
+
+		$this->expectException(ErrorResponseException::class);
+		$this->expectExceptionMessage('Received error response from API "/properties/529c5f44-c1b5-47dd-afc8-42dc2941f61e/income-verification". {"error":"error message"}');
+
+		$snapptClient->properties()->enableIncomeVerification('529c5f44-c1b5-47dd-afc8-42dc2941f61e', true);
 	}
 }
