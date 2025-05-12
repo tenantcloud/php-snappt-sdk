@@ -35,7 +35,7 @@ class PropertiesApiImpl implements PropertiesApi
 		$response = (array) psr_response_to_json($jsonResponse);
 
 		if (Arr::has($response, 'error')) {
-			throw new ErrorResponseException(self::CREATE_PROPERTY_API, (string) $jsonResponse->getBody());
+			throw new ErrorResponseException(self::CREATE_PROPERTY_API, json_encode($response));
 		}
 
 		return PropertyDTO::from($response);

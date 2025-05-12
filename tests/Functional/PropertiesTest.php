@@ -3,6 +3,7 @@
 namespace Tests\Functional;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use TenantCloud\Snappt\Properties\DTO\CreatePropertyDTO;
 use TenantCloud\Snappt\Properties\DTO\PropertyDTO;
 use TenantCloud\Snappt\Properties\DTO\SupportedDoctypesDTO;
@@ -128,5 +129,18 @@ class PropertiesTest extends TestCase
 				self::assertFalse($property->getIncomeVerificationEnabled());
 			},
 		];
+	}
+
+	public function testCreatePropertyError(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/properties/property-error.json')
+		);
+
+		$this->expectException(ErrorResponseException::class);
+		$this->expectExceptionMessage('Received error response from API "/properties". {"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
+
+		$snapptClient->properties()->create(CreatePropertyDTO::create());
 	}
 }
