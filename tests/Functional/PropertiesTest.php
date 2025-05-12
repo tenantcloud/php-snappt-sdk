@@ -4,7 +4,7 @@ namespace Tests\Functional;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
-use TenantCloud\Snappt\Properties\DTO\CreatePropertyDTO;
+use TenantCloud\Snappt\Properties\DTO\CreateOrUpdatePropertyDTO;
 use TenantCloud\Snappt\Properties\DTO\PropertyDTO;
 use TenantCloud\Snappt\Properties\DTO\SupportedDoctypesDTO;
 use TenantCloud\Snappt\Properties\Enum\IdentityVerificationReportImageType;
@@ -39,7 +39,7 @@ class PropertiesTest extends TestCase
 	}
 
 	#[DataProvider('createPropertySuccessProvider')]
-	public function testCreatePropertySuccess(string $fileName, CreatePropertyDTO $createPropertyDto, callable $assertion): void
+	public function testCreatePropertySuccess(string $fileName, CreateOrUpdatePropertyDTO $createPropertyDto, callable $assertion): void
 	{
 		$snapptClient = $this->mockResponse(
 			200,
@@ -55,7 +55,7 @@ class PropertiesTest extends TestCase
 	{
 		yield 'create property with min data' => [
 			'create-property-min-success.json',
-			CreatePropertyDTO::create()
+			CreateOrUpdatePropertyDTO::create()
 				->setName('Test property name')
 				->setEmail('test@gmail.com')
 				->setAddress('123 melrose str')
@@ -97,7 +97,7 @@ class PropertiesTest extends TestCase
 
 		yield 'create property with max data' => [
 			'create-property-max-success.json',
-			CreatePropertyDTO::create()
+			CreateOrUpdatePropertyDTO::create()
 				->setName('Test property name')
 				->setEmail('test@gmail.com')
 				->setAddress('123 melrose str')
@@ -160,13 +160,42 @@ class PropertiesTest extends TestCase
 	{
 		$snapptClient = $this->mockResponse(
 			200,
-			(string) file_get_contents(__DIR__ . '/../resources/properties/create-property-error.json')
+			(string) file_get_contents(__DIR__ . '/../resources/properties/create-or-update-property-error.json')
 		);
 
 		$this->expectException(ErrorResponseException::class);
 		$this->expectExceptionMessage('Received error response from API "/properties". {"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
 
-		$snapptClient->properties()->create(CreatePropertyDTO::create());
+		$snapptClient->properties()->create(CreateOrUpdatePropertyDTO::create());
+	}
+
+	public function testUpdatePropertySuccess(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/properties/property-success.json')
+		);
+
+		$property = $snapptClient->properties()->update(
+			'529c5f44-c1b5-47dd-afc8-42dc2941f61e',
+			CreateOrUpdatePropertyDTO::create()
+				->setName('Test property name')
+		);
+
+		$this->assertSame('Test property name', $property->getName());
+	}
+
+	public function testUpdatePropertyError(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/properties/create-or-update-property-error.json')
+		);
+
+		$this->expectException(ErrorResponseException::class);
+		$this->expectExceptionMessage('Received error response from API "/properties/529c5f44-c1b5-47dd-afc8-42dc2941f61e". {"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
+
+		$snapptClient->properties()->update('529c5f44-c1b5-47dd-afc8-42dc2941f61e', CreateOrUpdatePropertyDTO::create());
 	}
 
 	public function testEnableIncomeVerificationSuccess(): void

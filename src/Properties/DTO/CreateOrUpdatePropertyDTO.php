@@ -64,7 +64,7 @@ use Webmozart\Assert\Assert;
  * @method list<IdentityVerificationReportImageType>|null getIdentityVerificationReportImageTypes()
  * @method bool                                           hasIdentityVerificationReportImageTypes()
  */
-class CreatePropertyDTO extends CamelDataTransferObject
+class CreateOrUpdatePropertyDTO extends CamelDataTransferObject
 {
 	protected array $fields = [
 		'name',
