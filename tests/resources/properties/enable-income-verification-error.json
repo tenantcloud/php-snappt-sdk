@@ -1,0 +1,33 @@
+{
+	"id": "529c5f44-c1b5-47dd-afc8-42dc2941f61e",
+	"shortId": "0c53fa6a39",
+	"name": "proeprty name",
+	"entityName": "test entity name",
+	"logo": "https://montrealfilmjournal.com/wp-content/uploads/2020/02/R0001226.jpg",
+	"phone": "1888888888",
+	"phoneIsRequired": true,
+	"website": "https://ll.tc.loc",
+	"unit": "1",
+	"unitIsRequired": true,
+	"address": "123 melrose str",
+	"city": "Brooklyn",
+	"state": "NY",
+	"zip": "11206",
+	"status": "ACTIVE",
+	"supportedDoctypes": {
+		"w2": 0,
+		"payroll_statement": 1
+	},
+	"bankStatement": 3,
+	"paystub": 4,
+	"email": "test@gmail.com",
+	"companyId": "0808ebe9-e12b-496a-9fe6-50c9475a3b8f",
+	"companyShortId": "b8iZzSUMmy",
+	"pmcName": "Test pmc name",
+	"applicantLink": "https://demo.documentportal.info/application/apply/b8iZzSUMmy/0c53fa6a39",
+	"leasingTeamLink": "https://fraud.demo.snappt.com/application/applyonbehalf/b8iZzSUMmy/0c53fa6a39",
+	"identityVerificationEnabled": false,
+	"insertedAt": "2025-05-12T08:52:03.000Z",
+	"updatedAt": "2025-05-12T08:52:03.000Z",
+	"incomeVerificationEnabled": true
+}
