@@ -96,7 +96,7 @@ class ApplicantSessionsTest extends TestCase
 			->uploadDocument(
 				DocumentType::PAY_STUB,
 				'session-token',
-				__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
+				__DIR__ . '/../../resources/documents/1537 Corinth Checking.pdf',
 			);
 
 		$this->assertSame('bc535bcf-811e-45b3-84a2-112de8a5430e', $document->getId());
@@ -145,7 +145,7 @@ class ApplicantSessionsTest extends TestCase
 			->uploadDocument(
 				DocumentType::PAY_STUB,
 				'session-token',
-				__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
+				__DIR__ . '/../../resources/documents/1537 Corinth Checking.pdf',
 			);
 	}
 

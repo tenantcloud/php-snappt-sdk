@@ -56,7 +56,7 @@ class ApplicantsTest extends TestCase
 	{
 		$snapptClient = $this->mockResponse(
 			200,
-			(string) file_get_contents(__DIR__ . '/../../resources/documents/1537 Corinth Checking.pdf'),
+			(string) file_get_contents(__DIR__ . '/../../resources/reports/Sample Report_Clean with Income.pdf'),
 			['Content-Type' => 'application/pdf'],
 		);
 
