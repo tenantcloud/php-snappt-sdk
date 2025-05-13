@@ -24,12 +24,12 @@ class TestCase extends BaseTestCase
 		];
 	}
 
-	protected function mockResponse(int $statusCode, ?string $responseBody = null): SnapptClient
+	protected function mockResponse(int $statusCode, ?string $responseBody = null, array $headers = []): SnapptClient
 	{
 		$mock = new MockHandler([
 			new Response(
 				$statusCode,
-				[],
+				$headers,
 				$responseBody
 			),
 		]);
