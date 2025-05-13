@@ -79,7 +79,7 @@ class ApplicantSessionsTest extends TestCase
 		);
 
 		$this->expectException(ErrorResponseException::class);
-		$this->expectExceptionMessage('Received error response from API "/session/application". Error: error message');
+		$this->expectExceptionMessage('{"error":"error message"}');
 
 		$snapptClient->applicantSessions()->updateApplication(UpdateApplicationDTO::create(), 'session-token');
 	}
@@ -132,13 +132,7 @@ class ApplicantSessionsTest extends TestCase
 		);
 
 		$this->expectException(ErrorResponseException::class);
-		$this->expectExceptionMessage(sprintf(
-			'Received error response from API "%s". Error: %s. Status code: %s. Failed checks: %s',
-			'/session/documents',
-			'error message',
-			1111,
-			'failed check 1, failed check 2'
-		));
+		$this->expectExceptionMessage('{"statusCode":1111,"error":"error message","failedChecks":["failed check 1","failed check 2"]}');
 
 		$snapptClient
 			->applicantSessions()

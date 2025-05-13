@@ -33,7 +33,7 @@ class PropertiesTest extends TestCase
 		);
 
 		$this->expectException(ErrorResponseException::class);
-		$this->expectExceptionMessage('Received error response from API "/properties/529c5f44-c1b5-47dd-afc8-42dc2941f61e". {"error":"error message"}');
+		$this->expectExceptionMessage('{"error":"error message"}');
 
 		$snapptClient->properties()->get('529c5f44-c1b5-47dd-afc8-42dc2941f61e');
 	}
@@ -164,7 +164,7 @@ class PropertiesTest extends TestCase
 		);
 
 		$this->expectException(ErrorResponseException::class);
-		$this->expectExceptionMessage('Received error response from API "/properties". {"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
+		$this->expectExceptionMessage('{"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
 
 		$snapptClient->properties()->create(CreateOrUpdatePropertyDTO::create());
 	}
@@ -193,7 +193,7 @@ class PropertiesTest extends TestCase
 		);
 
 		$this->expectException(ErrorResponseException::class);
-		$this->expectExceptionMessage('Received error response from API "/properties/529c5f44-c1b5-47dd-afc8-42dc2941f61e". {"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
+		$this->expectExceptionMessage('{"error":"error message","propertyId":"529c5f44-c1b5-47dd-afc8-42dc2941f61e"}');
 
 		$snapptClient->properties()->update('529c5f44-c1b5-47dd-afc8-42dc2941f61e', CreateOrUpdatePropertyDTO::create());
 	}
@@ -218,7 +218,7 @@ class PropertiesTest extends TestCase
 		);
 
 		$this->expectException(ErrorResponseException::class);
-		$this->expectExceptionMessage('Received error response from API "/properties/529c5f44-c1b5-47dd-afc8-42dc2941f61e/income-verification". {"error":"error message"}');
+		$this->expectExceptionMessage('{"error":"error message"}');
 
 		$snapptClient->properties()->enableIncomeVerification('529c5f44-c1b5-47dd-afc8-42dc2941f61e', true);
 	}

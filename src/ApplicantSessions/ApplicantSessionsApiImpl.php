@@ -12,7 +12,6 @@ use TenantCloud\Snappt\ApplicantSessions\DTO\SessionDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 use TenantCloud\Snappt\Client\RequestHelper;
-use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
@@ -63,11 +62,7 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 
 		$response = (array) psr_response_to_json($jsonResponse);
 
-		if (Arr::has($response, 'error')) {
-			$errorMessage = 'Error: ' . $response['error'];
-
-			throw new ErrorResponseException(self::UPDATE_SESSION_API, $errorMessage);
-		}
+		$this->throwIfResponseHasError($response);
 
 		return UpdateApplicationDTO::from($response);
 	}
@@ -105,16 +100,7 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 
 		$response = (array) psr_response_to_json($jsonResponse);
 
-		if (Arr::has($response, 'error')) {
-			$errorMessage = sprintf(
-				'Error: %s. Status code: %s. Failed checks: %s',
-				$response['error'],
-				$response['statusCode'] ?? 'none',
-				isset($response['failedChecks']) ? implode(', ', (array) $response['failedChecks']) : 'none'
-			);
-
-			throw new ErrorResponseException(self::UPLOAD_DOCUMENT_API, $errorMessage);
-		}
+		$this->throwIfResponseHasError($response);
 
 		return DocumentDTO::from($response);
 	}

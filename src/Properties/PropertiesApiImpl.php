@@ -4,9 +4,7 @@ namespace TenantCloud\Snappt\Properties;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Support\Arr;
 use TenantCloud\Snappt\Client\RequestHelper;
-use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use TenantCloud\Snappt\Properties\DTO\CreateOrUpdatePropertyDTO;
 use TenantCloud\Snappt\Properties\DTO\PropertyDTO;
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
@@ -38,9 +36,7 @@ class PropertiesApiImpl implements PropertiesApi
 
 		$response = (array) psr_response_to_json($jsonResponse);
 
-		if (Arr::has($response, 'error')) {
-			throw new ErrorResponseException($url, json_encode($response));
-		}
+		$this->throwIfResponseHasError($response);
 
 		return PropertyDTO::from($response);
 	}
@@ -57,9 +53,7 @@ class PropertiesApiImpl implements PropertiesApi
 
 		$response = (array) psr_response_to_json($jsonResponse);
 
-		if (Arr::has($response, 'error')) {
-			throw new ErrorResponseException(self::CREATE_PROPERTY_API, json_encode($response));
-		}
+		$this->throwIfResponseHasError($response);
 
 		return PropertyDTO::from($response);
 	}
@@ -78,9 +72,7 @@ class PropertiesApiImpl implements PropertiesApi
 
 		$response = (array) psr_response_to_json($jsonResponse);
 
-		if (Arr::has($response, 'error')) {
-			throw new ErrorResponseException($url, json_encode($response));
-		}
+		$this->throwIfResponseHasError($response);
 
 		return PropertyDTO::from($response);
 	}
@@ -101,9 +93,7 @@ class PropertiesApiImpl implements PropertiesApi
 
 		$response = (array) psr_response_to_json($jsonResponse);
 
-		if (Arr::has($response, 'error')) {
-			throw new ErrorResponseException($url, json_encode($response));
-		}
+		$this->throwIfResponseHasError($response);
 
 		return PropertyDTO::from($response);
 	}
