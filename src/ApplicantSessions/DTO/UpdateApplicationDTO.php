@@ -6,14 +6,14 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\Snappt\ApplicantSessions\Enum\ApplicationType;
 
 /**
- * @method self   	   setId(string $id)
- * @method string 	   getId()
- * @method bool   	   hasId()
- * @method string 	   getType()
- * @method bool   	   hasType()
- * @method self   	   setUnit(?string $unit)
+ * @method self        setId(string $id)
+ * @method string      getId()
+ * @method bool        hasId()
+ * @method string      getType()
+ * @method bool        hasType()
+ * @method self        setUnit(?string $unit)
  * @method string|null getUnit()
- * @method bool   	   hasUnit()
+ * @method bool        hasUnit()
  * @method self        setFirstName(?string $firstName)
  * @method string|null getFirstName()
  * @method bool        hasFirstName()

@@ -9,6 +9,7 @@ use TenantCloud\Snappt\Applicants\DTO\ApplicantDTO;
 use TenantCloud\Snappt\Applicants\Enum\Format;
 use TenantCloud\Snappt\Applicants\Enum\Preset;
 use TenantCloud\Snappt\Client\RequestHelper;
+
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
 class ApplicantsApiImpl implements ApplicantsApi
@@ -52,12 +53,17 @@ class ApplicantsApiImpl implements ApplicantsApi
 
 		$url = sprintf(self::REPORT_APPLICANT_API, $applicantId) . '?' . $query;
 
+		$acceptHeader = match ($format) {
+			Format::PDF  => 'application/pdf',
+			Format::HTML => 'text/html',
+		};
+
 		return $this->httpClient->get(
 			$url,
 			[
 				RequestOptions::HEADERS => array_merge(
 					$this->setAuthHeader($this->apiKey),
-					['Accept' => 'application/pdf'],
+					['Accept' => $acceptHeader],
 				),
 			]
 		);

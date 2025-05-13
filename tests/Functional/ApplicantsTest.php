@@ -52,6 +52,7 @@ class ApplicantsTest extends TestCase
 		];
 	}
 
+	// todo: add test for html format
 	public function testReportSuccess(): void
 	{
 		$snapptClient = $this->mockResponse(
