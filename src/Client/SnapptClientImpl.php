@@ -7,6 +7,8 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
+use TenantCloud\Snappt\Applicants\ApplicantsApi;
+use TenantCloud\Snappt\Applicants\ApplicantsApiImpl;
 use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApi;
 use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApiImpl;
 use TenantCloud\Snappt\Properties\PropertiesApi;
@@ -52,5 +54,10 @@ class SnapptClientImpl implements SnapptClient
 	public function properties(): PropertiesApi
 	{
 		return new PropertiesApiImpl($this->httpClient, $this->apiKey);
+	}
+
+	public function applicants(): ApplicantsApi
+	{
+		return new ApplicantsApiImpl($this->httpClient, $this->apiKey);
 	}
 }

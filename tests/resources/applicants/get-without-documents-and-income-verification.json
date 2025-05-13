@@ -1,0 +1,16 @@
+{
+	"id": "7349cbc6-40cf-41af-a3d1-edb2fbe365c2",
+	"fullName": "Lamar L Goyette",
+	"firstName": "Lamar",
+	"middleInitial": "L",
+	"lastName": "Goyette",
+	"email": "lamar_goyette_test@gmail.com",
+	"phone": "2187431987",
+	"notification": false,
+	"entryId": "a6d752cb-18d8-41a3-a673-b9b7d22bd3cc",
+	"insertedAt": "2025-05-12T12:48:40.000Z",
+	"updatedAt": "2025-05-12T12:48:40.000Z",
+	"status": "READY",
+	"result": "CLEAN",
+	"applicantDetailId": "f7b09e1d-b16f-4c23-8f9a-d1d7e319950e"
+}
