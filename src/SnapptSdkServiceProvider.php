@@ -29,15 +29,22 @@ class SnapptSdkServiceProvider extends ServiceProvider
 		$config = $this->app->make(Repository::class);
 		$logger = $this->app->make(LoggerInterface::class);
 
-		if (!$config->get('snappt.fake_client')) {
-			$this->app->bind(SnapptClient::class, fn () => new SnapptClientImpl(
-				$config->get('snappt.api_key'),
-				$config->get('snappt.base_url'),
-				30,
-				$logger,
-			));
-		} else {
-			$this->app->bind(SnapptClient::class, FakeSnapptClient::class);
-		}
+//		if (!$config->get('snappt.fake_client')) {
+//			$this->app->bind(SnapptClient::class, fn () => new SnapptClientImpl(
+//				$config->get('snappt.api_key'),
+//				$config->get('snappt.base_url'),
+//				30,
+//				$logger,
+//			));
+//		} else {
+//			$this->app->bind(SnapptClient::class, FakeSnapptClient::class);
+//		}
+
+		$this->app->bind(SnapptClient::class, fn () => new SnapptClientImpl(
+			$config->get('snappt.api_key'),
+			$config->get('snappt.base_url'),
+			30,
+			$logger,
+		));
 	}
 }

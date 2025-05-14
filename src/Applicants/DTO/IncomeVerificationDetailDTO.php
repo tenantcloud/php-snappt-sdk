@@ -38,6 +38,9 @@ class IncomeVerificationDetailDTO extends CamelDataTransferObject
 		'statusDetails',
 	];
 
+	/**
+	 * @param list<array<string, mixed>>|null $statusDetails
+	 */
 	public function setStatusDetails(?array $statusDetails): self
 	{
 		if ($statusDetails === null) {

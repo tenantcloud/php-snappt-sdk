@@ -73,6 +73,9 @@ class ApplicantDTO extends CamelDataTransferObject
 		'incomeVerificationDetails',
 	];
 
+	/**
+	 * @param list<array<string, mixed>> $documents
+	 */
 	public function setDocuments(array $documents): self
 	{
 		$documentsDto = [];
@@ -84,6 +87,9 @@ class ApplicantDTO extends CamelDataTransferObject
 		return $this->set('documents', $documentsDto);
 	}
 
+	/**
+	 * @param array<string, mixed>|null $incomeVerificationDetails
+	 */
 	public function setIncomeVerificationDetails(?array $incomeVerificationDetails): self
 	{
 		if (!$incomeVerificationDetails) {

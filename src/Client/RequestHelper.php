@@ -7,6 +7,9 @@ use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 
 trait RequestHelper
 {
+	/**
+	 * @return array<string, string>
+	 */
 	public function setAuthHeader(string $apiKey): array
 	{
 		return [
@@ -14,6 +17,9 @@ trait RequestHelper
 		];
 	}
 
+	/**
+	 * @return array<string, string>
+	 */
 	public function setUnauthenticatedSessionToken(string $sessionToken): array
 	{
 		return [
@@ -21,6 +27,9 @@ trait RequestHelper
 		];
 	}
 
+	/**
+	 * @param array<string, mixed> $response
+	 */
 	public function throwIfResponseHasError(array $response): void
 	{
 		if (Arr::has($response, 'error')) {
