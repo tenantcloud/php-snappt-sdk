@@ -1,0 +1,50 @@
+{
+	"id": "cffe49a5-bfe3-4d3c-a51e-7a44a94dbd27",
+	"fullName": "John Doe",
+	"firstName": "John",
+	"middleInitial": null,
+	"lastName": "Doe",
+	"email": null,
+	"phone": null,
+	"notification": false,
+	"entryId": "ec1bd297-812e-4c40-a788-97672d4b4d78",
+	"insertedAt": "2025-05-08T14:20:48.000Z",
+	"updatedAt": "2025-05-08T14:20:48.000Z",
+	"status": "READY",
+	"result": "CLEAN",
+	"applicantDetailId": "ce1ec936-3135-4f84-8e1f-6310e55d7db6",
+	"documents": [
+		{
+			"id": "bc535bcf-811e-45b3-84a2-112de8a5430e",
+			"fileName": "proofs/bc535bcf-811e-45b3-84a2-112de8a5430e/file",
+			"insertedAt": "2025-05-08T14:20:48.000Z",
+			"type": "BANK_STATEMENT",
+			"result": "CLEAN",
+			"sourceType": "DOCUMENT_UPLOAD"
+		},
+		{
+			"id": "caa8cac7-aae2-4d2a-8848-9ef43d94349a",
+			"fileName": "proofs/caa8cac7-aae2-4d2a-8848-9ef43d94349a/file",
+			"insertedAt": "2025-05-08T14:20:48.000Z",
+			"type": "PAYSTUB",
+			"result": "CLEAN",
+			"sourceType": "DOCUMENT_UPLOAD",
+			"incomeVerificationDetails": {
+				"calculationStartDate": "2025-05-01T00:00:00.000Z",
+				"calculationEndDate": "2025-05-31T00:00:00.000Z",
+				"grossIncome": 7693.04,
+				"incomeSource": "D & N Apartment Living",
+				"applicantName": "Jonh Doe"
+			}
+		}
+	],
+	"incomeVerificationDetails": {
+		"calculationDate": "2025-05-08T14:31:03.923Z",
+		"grossDailyIncome": 248.16,
+		"grossMonthlyIncome": 7554.07,
+		"grossYearlyIncome": 90648.83,
+		"consecutiveDays": 31,
+		"status": "ok",
+		"statusDetails": []
+	}
+}

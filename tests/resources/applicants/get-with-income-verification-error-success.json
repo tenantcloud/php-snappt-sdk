@@ -1,0 +1,32 @@
+{
+	"id": "cffe49a5-bfe3-4d3c-a51e-7a44a94dbd27",
+	"fullName": "John Doe",
+	"firstName": "John",
+	"middleInitial": null,
+	"lastName": "Doe",
+	"email": null,
+	"phone": null,
+	"notification": false,
+	"entryId": "ec1bd297-812e-4c40-a788-97672d4b4d78",
+	"insertedAt": "2025-05-08T14:20:48.000Z",
+	"updatedAt": "2025-05-08T14:20:48.000Z",
+	"status": "READY",
+	"result": "CLEAN",
+	"applicantDetailId": "ce1ec936-3135-4f84-8e1f-6310e55d7db6",
+	"incomeVerificationDetails": {
+		"calculationDate": "2024-06-13T03:01:44.972Z",
+		"grossDailyIncome": 26.32,
+		"grossMonthlyIncome": 789.47,
+		"grossYearlyIncome": 9605.26,
+		"consecutiveDays": 38,
+		"status": "error",
+		"statusDetails": [
+			{
+				"code": 3004
+			},
+			{
+				"code": 3007
+			}
+		]
+	}
+}
