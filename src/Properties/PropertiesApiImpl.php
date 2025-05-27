@@ -9,6 +9,7 @@ use TenantCloud\Snappt\Client\RequestHelper;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use TenantCloud\Snappt\Properties\DTO\CreateOrUpdatePropertyDTO;
 use TenantCloud\Snappt\Properties\DTO\PropertyDTO;
+
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
 class PropertiesApiImpl implements PropertiesApi

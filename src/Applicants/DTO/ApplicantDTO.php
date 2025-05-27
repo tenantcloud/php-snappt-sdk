@@ -84,12 +84,16 @@ class ApplicantDTO extends CamelDataTransferObject
 		return $this->set('documents', $documentsDto);
 	}
 
-	public function setIncomeVerificationDetails(?array $incomeVerificationDetails): self
+	public function setIncomeVerificationDetails(mixed $incomeVerificationDetails): self
 	{
 		if (!$incomeVerificationDetails) {
 			return $this->set('incomeVerificationDetails', null);
 		}
 
-		return $this->set('incomeVerificationDetails', IncomeVerificationDetailDTO::from($incomeVerificationDetails));
+		if (is_array($incomeVerificationDetails)) {
+			$incomeVerificationDetails = IncomeVerificationDetailDTO::from($incomeVerificationDetails);
+		}
+
+		return $this->set('incomeVerificationDetails', $incomeVerificationDetails);
 	}
 }

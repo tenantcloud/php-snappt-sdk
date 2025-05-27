@@ -3,6 +3,7 @@
 namespace TenantCloud\Snappt\ApplicantSessions\DTO;
 
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
+use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 
 /**
  * @method self   setId(string $id)
@@ -17,7 +18,6 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  * @method self   setInsertedAt(string $insertedAt)
  * @method string getInsertedAt()
  * @method bool   hasInsertedAt()
- * @method self   setType(string $insertedAt)
  * @method string getType()
  * @method bool   hasType()
  * @method self   setProcessStatus(string $processStatus)
@@ -38,4 +38,9 @@ class DocumentDTO extends CamelDataTransferObject
 		'processStatus',
 		'result',
 	];
+
+	public function setType(string|DocumentType $type): self
+	{
+		return $this->set('type', $type instanceof DocumentType ? $type->value : $type);
+	}
 }

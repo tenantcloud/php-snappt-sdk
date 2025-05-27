@@ -9,6 +9,7 @@ use TenantCloud\Snappt\Applicants\DTO\ApplicantDTO;
 use TenantCloud\Snappt\Applicants\Enum\Format;
 use TenantCloud\Snappt\Applicants\Enum\Preset;
 use TenantCloud\Snappt\Client\RequestHelper;
+
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
 class ApplicantsApiImpl implements ApplicantsApi
