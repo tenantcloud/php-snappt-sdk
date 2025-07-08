@@ -4,6 +4,9 @@ namespace TenantCloud\Snappt\Client;
 
 trait RequestHelper
 {
+	/**
+	 * @return array<string, string>
+	 */
 	public function setAuthHeader(string $apiKey): array
 	{
 		return [
@@ -11,6 +14,9 @@ trait RequestHelper
 		];
 	}
 
+	/**
+	 * @return array<string, string>
+	 */
 	public function setUnauthenticatedSessionToken(string $sessionToken): array
 	{
 		return [

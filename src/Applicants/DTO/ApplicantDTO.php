@@ -73,6 +73,9 @@ class ApplicantDTO extends CamelDataTransferObject
 		'incomeVerificationDetails',
 	];
 
+	/**
+	 * @param list<array<string, mixed>> $documents
+	 */
 	public function setDocuments(array $documents): self
 	{
 		$documentsDto = [];

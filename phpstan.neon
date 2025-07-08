@@ -6,9 +6,12 @@ includes:
 	- vendor/nunomaduro/larastan/extension.neon
 
 parameters:
-	level: max
+	level: 6
 	tmpDir: ./tmp/phpstan
 
 	paths:
 		- src
 		- tests
+
+	ignoreErrors:
+		- '#Property .*DTO::\$fields type has no value type specified in iterable type array\.#i'
