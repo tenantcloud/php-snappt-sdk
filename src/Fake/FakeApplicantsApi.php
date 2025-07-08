@@ -30,7 +30,7 @@ class FakeApplicantsApi implements ApplicantsApi
 
 		if (
 			Arr::get($applicantData, 'email') === 'undetermined_snappt@tenantcloud.com' &&
-			!Arr::get($applicantData, 'hasPreviouslySubmitted')
+			!Arr::get($applicantData, 'applicantIdentifier')
 		) {
 			$applicantDto = ApplicantDTO::from($applicantData)
 				->setId($applicantId)
@@ -77,7 +77,7 @@ class FakeApplicantsApi implements ApplicantsApi
 
 		if (
 			Arr::get($applicantData, 'email') === 'undetermined_snappt@tenantcloud.com' &&
-			!Arr::get($applicantData, 'hasPreviouslySubmitted')
+			!Arr::get($applicantData, 'applicantIdentifier')
 		) {
 			$content = (string) file_get_contents(__DIR__ . '/../../resources/reports/Sample Report_Clean docs with Income Error.pdf');
 		} else {
