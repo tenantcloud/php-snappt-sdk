@@ -5,7 +5,6 @@ namespace TenantCloud\Snappt\ApplicantSessions;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
-use InvalidArgumentException;
 use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\DocumentDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\SessionDTO;
