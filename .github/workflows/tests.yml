@@ -4,13 +4,12 @@ on: [push, pull_request]
 
 jobs:
     phpunit:
-        name: PHPUnit on PHP v${{ matrix.php }} & TestBench ${{ matrix.test-bench }}
+        name: PHPUnit on PHP v${{ matrix.php }}
         runs-on: ubuntu-latest
         strategy:
             fail-fast: true
             matrix:
                 php: [ 8.2 ]
-                test-bench: [ ^7.0, ^8.0 ]
 
         steps:
             -   name: Checkout code
@@ -36,9 +35,7 @@ jobs:
                         ${{ runner.os }}-php-
 
             -   name: Install dependencies
-                run: |
-                    composer require "orchestra/testbench=${{ matrix.test-bench }}" --dev --no-update
-                    composer install --prefer-dist --no-progress
+                run: composer install --prefer-dist --no-progress
 
             -   name: Execute phpunit
                 run: composer test -- --colors=always
@@ -74,13 +71,12 @@ jobs:
                 run: composer cs-fix -- --dry-run --diff --using-cache=no
 
     phpstan:
-        name: PHPStan on PHP v${{ matrix.php }} & TestBench ${{ matrix.test-bench }}
+        name: PHPStan on PHP v${{ matrix.php }}
         runs-on: ubuntu-latest
         strategy:
             fail-fast: true
             matrix:
                 php: [ 8.2 ]
-                test-bench: [ ^7.0, ^8.0 ]
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v3
@@ -105,9 +101,7 @@ jobs:
                         ${{ runner.os }}-php-
 
             -   name: Install dependencies
-                run: |
-                    composer require "orchestra/testbench=${{ matrix.test-bench }}" --dev --no-update
-                    composer install --prefer-dist --no-progress
+                run: composer install --prefer-dist --no-progress
 
             -   name: Execute phpstan
                 run: composer phpstan
