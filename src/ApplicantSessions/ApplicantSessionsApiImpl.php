@@ -74,10 +74,6 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 
 	public function uploadDocument(DocumentType $documentType, string $sessionToken, string $filePath): DocumentDTO
 	{
-		if (!file_exists($filePath)) {
-			throw new InvalidArgumentException("File not found at path: {$filePath}");
-		}
-
 		$jsonResponse = $this->httpClient->post(
 			self::UPLOAD_DOCUMENT_API,
 			[
