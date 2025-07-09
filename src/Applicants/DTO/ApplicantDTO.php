@@ -74,14 +74,14 @@ class ApplicantDTO extends CamelDataTransferObject
 	];
 
 	/**
-	 * @param list<array<string, mixed>> $documents
+	 * @param list<array<string, mixed>|DocumentDTO> $documents
 	 */
 	public function setDocuments(array $documents): self
 	{
 		$documentsDto = [];
 
 		foreach ($documents as $document) {
-			$documentsDto[] = DocumentDTO::from($document);
+			$documentsDto[] = $document instanceof DocumentDTO ? $document : DocumentDTO::from($document);
 		}
 
 		return $this->set('documents', $documentsDto);

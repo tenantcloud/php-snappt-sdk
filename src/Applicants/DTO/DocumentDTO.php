@@ -38,18 +38,19 @@ class DocumentDTO extends CamelDataTransferObject
 		'incomeVerificationDetails',
 	];
 
-	/**
-	 * @param array<string, mixed>|null $documentIncomeVerificationDetailDTO
-	 */
-	public function setIncomeVerificationDetails(?array $documentIncomeVerificationDetailDTO): self
+	public function setIncomeVerificationDetails(mixed $documentIncomeVerificationDetails): self
 	{
-		if (!$documentIncomeVerificationDetailDTO) {
+		if (!$documentIncomeVerificationDetails) {
 			return $this->set('incomeVerificationDetails', null);
+		}
+
+		if (is_array($documentIncomeVerificationDetails)) {
+			$documentIncomeVerificationDetails = DocumentIncomeVerificationDetailDTO::from($documentIncomeVerificationDetails);
 		}
 
 		return $this->set(
 			'incomeVerificationDetails',
-			DocumentIncomeVerificationDetailDTO::from($documentIncomeVerificationDetailDTO)
+			DocumentIncomeVerificationDetailDTO::from($documentIncomeVerificationDetails)
 		);
 	}
 }
