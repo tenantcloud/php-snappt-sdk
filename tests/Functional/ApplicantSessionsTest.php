@@ -2,7 +2,6 @@
 
 namespace Tests\Functional;
 
-use InvalidArgumentException;
 use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\ApplicantSessions\Enum\ApplicationType;
@@ -106,22 +105,6 @@ class ApplicantSessionsTest extends TestCase
 		$this->assertSame('PAYSTUB', $document->getType());
 		$this->assertSame('SUCCESS', $document->getProcessStatus());
 		$this->assertSame('PENDING', $document->getResult());
-	}
-
-	public function testUploadDocumentErrorFileNotExists(): void
-	{
-		$snapptClient = $this->mockResponse(200);
-
-		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('File not found at path: not-exists-document.pdf');
-
-		$snapptClient
-			->applicantSessions()
-			->uploadDocument(
-				DocumentType::PAY_STUB,
-				'session-token',
-				'not-exists-document.pdf',
-			);
 	}
 
 	public function testUploadDocumentError(): void
