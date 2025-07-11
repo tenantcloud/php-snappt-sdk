@@ -5,7 +5,6 @@ namespace TenantCloud\Snappt\ApplicantSessions;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
-use InvalidArgumentException;
 use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\DocumentDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\SessionDTO;
@@ -74,10 +73,6 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 
 	public function uploadDocument(DocumentType $documentType, string $sessionToken, string $filePath): DocumentDTO
 	{
-		if (!file_exists($filePath)) {
-			throw new InvalidArgumentException("File not found at path: {$filePath}");
-		}
-
 		$jsonResponse = $this->httpClient->post(
 			self::UPLOAD_DOCUMENT_API,
 			[

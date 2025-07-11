@@ -5,7 +5,6 @@ namespace TenantCloud\Snappt\Properties\DTO;
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\Snappt\Properties\Enum\IdentityVerificationReportImageType;
 use TenantCloud\Snappt\Properties\Enum\Status;
-use Webmozart\Assert\Assert;
 
 /**
  * @method self                                           setName(string $name)
@@ -101,8 +100,6 @@ class CreateOrUpdatePropertyDTO extends CamelDataTransferObject
 		if (!$identityVerificationReportImageTypes) {
 			return $this->set('identityVerificationReportImageTypes', null);
 		}
-
-		Assert::allIsInstanceOf($identityVerificationReportImageTypes, IdentityVerificationReportImageType::class);
 
 		$imageTypes = [];
 
