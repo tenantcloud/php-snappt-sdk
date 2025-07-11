@@ -2,6 +2,7 @@
 
 namespace Tests\Functional;
 
+use Closure;
 use PHPUnit\Framework\Attributes\DataProvider;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use TenantCloud\Snappt\Properties\DTO\CreateOrUpdatePropertyDTO;
@@ -51,6 +52,9 @@ class PropertiesTest extends TestCase
 		$assertion($property);
 	}
 
+	/**
+	 * @return iterable<string, array{0: string, 1: CreateOrUpdatePropertyDTO, 2: Closure(PropertyDTO): void}>
+	 */
 	public static function createPropertySuccessProvider(): iterable
 	{
 		yield 'create property with min data' => [

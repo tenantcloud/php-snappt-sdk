@@ -4,7 +4,6 @@ namespace TenantCloud\Snappt\Properties\DTO;
 
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\Snappt\Properties\Enum\IdentityVerificationReportImageType;
-use Webmozart\Assert\Assert;
 
 /**
  * @method self                                           setId(string $id)
@@ -65,7 +64,7 @@ use Webmozart\Assert\Assert;
  * @method int|null                                       getPaystub()
  * @method bool                                           hasPaystub()
  * @method self                                           setSupportedDoctypes(?SupportedDoctypesDTO $supportedDoctypes)
- * @method SupportedDoctypesDTO|null                      getSupportedDoctypes()
+ * @method array|null                                     getSupportedDoctypes()
  * @method bool                                           hasSupportedDoctypes()
  * @method list<IdentityVerificationReportImageType>|null getIdentityVerificationReportImageTypes()
  * @method bool                                           hasIdentityVerificationReportImageTypes()
@@ -140,8 +139,6 @@ class PropertyDTO extends CamelDataTransferObject
 		if (!$identityVerificationReportImageTypes) {
 			return $this->set('identityVerificationReportImageTypes', null);
 		}
-
-		Assert::allIsInstanceOf($identityVerificationReportImageTypes, IdentityVerificationReportImageType::class);
 
 		$imageTypes = [];
 

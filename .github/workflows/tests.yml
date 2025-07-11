@@ -13,13 +13,12 @@ on:
 
 jobs:
     phpunit:
-        name: PHPUnit on PHP v${{ matrix.php }} & TestBench ${{ matrix.test-bench }}
+        name: PHPUnit on PHP v${{ matrix.php }}
         runs-on: ubuntu-latest
         strategy:
             fail-fast: true
             matrix:
-                php: [ 8.1, 8.2 ]
-                test-bench: [ ^7.0, ^8.0 ]
+                php: [ 8.2 ]
 
         steps:
             -   name: Checkout code
@@ -45,9 +44,7 @@ jobs:
                         ${{ runner.os }}-php-
 
             -   name: Install dependencies
-                run: |
-                    composer require "orchestra/testbench=${{ matrix.test-bench }}" --dev --no-update
-                    composer install --prefer-dist --no-progress
+                run: composer install --prefer-dist --no-progress
 
             -   name: Execute phpunit
                 run: composer test -- --colors=always
@@ -62,7 +59,7 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.1
+                    php-version: 8.2
                     extensions: dom, curl, libxml, mbstring, zip
                     tools: composer:v2
                     coverage: none
@@ -83,13 +80,12 @@ jobs:
                 run: composer cs-fix -- --dry-run --diff --using-cache=no
 
     phpstan:
-        name: PHPStan on PHP v${{ matrix.php }} & TestBench ${{ matrix.test-bench }}
+        name: PHPStan on PHP v${{ matrix.php }}
         runs-on: ubuntu-latest
         strategy:
             fail-fast: true
             matrix:
-                php: [ 8.1, 8.2 ]
-                test-bench: [ ^7.0, ^8.0 ]
+                php: [ 8.2 ]
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v3
@@ -114,9 +110,7 @@ jobs:
                         ${{ runner.os }}-php-
 
             -   name: Install dependencies
-                run: |
-                    composer require "orchestra/testbench=${{ matrix.test-bench }}" --dev --no-update
-                    composer install --prefer-dist --no-progress
+                run: composer install --prefer-dist --no-progress
 
             -   name: Execute phpstan
                 run: composer phpstan

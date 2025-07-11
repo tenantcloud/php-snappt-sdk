@@ -24,6 +24,9 @@ class ApplicantsTest extends TestCase
 		$this->assertSame(json_decode($mockResponseBody, true), $applicant->toArray());
 	}
 
+	/**
+	 * @return iterable<string, array{0: string, 1: bool}>
+	 */
 	public static function getApplicantSuccessProvider(): iterable
 	{
 		yield 'with documents and income verification' => [
