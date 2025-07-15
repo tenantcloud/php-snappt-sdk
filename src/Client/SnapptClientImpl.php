@@ -13,6 +13,8 @@ use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApi;
 use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApiImpl;
 use TenantCloud\Snappt\Properties\PropertiesApi;
 use TenantCloud\Snappt\Properties\PropertiesApiImpl;
+use TenantCloud\Snappt\Webhooks\WebhooksApi;
+use TenantCloud\Snappt\Webhooks\WebhooksApiImpl;
 
 class SnapptClientImpl implements SnapptClient
 {
@@ -59,5 +61,10 @@ class SnapptClientImpl implements SnapptClient
 	public function applicants(): ApplicantsApi
 	{
 		return new ApplicantsApiImpl($this->httpClient, $this->apiKey);
+	}
+
+	public function webhooks(): WebhooksApi
+	{
+		return new WebhooksApiImpl($this->httpClient, $this->apiKey);
 	}
 }
