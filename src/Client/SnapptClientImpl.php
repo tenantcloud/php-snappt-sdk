@@ -6,6 +6,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;
+use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
+use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
 use TenantCloud\Snappt\Applicants\ApplicantsApi;
 use TenantCloud\Snappt\Applicants\ApplicantsApiImpl;
@@ -33,8 +35,13 @@ class SnapptClientImpl implements SnapptClient
 		$stack->unshift(GuzzleMiddleware::fullErrorResponseBody());
 
 		// Hide secret info from error responses.
-		// todo:
-		$stack->unshift(GuzzleMiddleware::dumpRequestBody());
+		$stack->unshift(GuzzleMiddleware::dumpRequestBody([
+			new JsonObfuscator([
+				'email',
+				'phone',
+			]),
+			new HeaderObfuscator(['Authorization']),
+		]));
 
 		if ($logger) {
 			$stack->push(GuzzleMiddleware::tracingLog($logger));
