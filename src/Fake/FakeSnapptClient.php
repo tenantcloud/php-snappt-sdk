@@ -7,6 +7,7 @@ use TenantCloud\Snappt\Applicants\ApplicantsApi;
 use TenantCloud\Snappt\ApplicantSessions\ApplicantSessionsApi;
 use TenantCloud\Snappt\Client\SnapptClient;
 use TenantCloud\Snappt\Properties\PropertiesApi;
+use TenantCloud\Snappt\Webhooks\WebhooksApi;
 
 class FakeSnapptClient implements SnapptClient
 {
@@ -27,5 +28,10 @@ class FakeSnapptClient implements SnapptClient
 	public function applicants(): ApplicantsApi
 	{
 		return new FakeApplicantsApi($this->cache);
+	}
+
+	public function webhooks(): WebhooksApi
+	{
+		return new FakeWebhooksApi($this->cache);
 	}
 }
