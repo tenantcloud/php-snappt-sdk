@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/tenantcloud/php-snappt-sdk/compare/v1.0.1...v2.0.0) (2025-08-20)
+
+
+### Features
+
+* Upgrade php verison ([#11](https://github.com/tenantcloud/php-snappt-sdk/issues/11)) ([#12](https://github.com/tenantcloud/php-snappt-sdk/issues/12)) ([f5c4dd3](https://github.com/tenantcloud/php-snappt-sdk/commit/f5c4dd3a05659c2ef87af57bd7ed99fb3c9c12d1))
+
+
+### BREAKING CHANGES
+
+* Upgrade php version
+
 ## [1.0.1](https://github.com/tenantcloud/php-snappt-sdk/compare/v1.0.0...v1.0.1) (2025-07-16)
 
 
