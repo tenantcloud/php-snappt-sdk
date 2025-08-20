@@ -64,7 +64,7 @@ use TenantCloud\Snappt\Properties\Enum\IdentityVerificationReportImageType;
  * @method int|null                                       getPaystub()
  * @method bool                                           hasPaystub()
  * @method self                                           setSupportedDoctypes(?SupportedDoctypesDTO $supportedDoctypes)
- * @method array|null                                     getSupportedDoctypes()
+ * @method array<string, int>|null                        getSupportedDoctypes()
  * @method bool                                           hasSupportedDoctypes()
  * @method list<IdentityVerificationReportImageType>|null getIdentityVerificationReportImageTypes()
  * @method bool                                           hasIdentityVerificationReportImageTypes()
