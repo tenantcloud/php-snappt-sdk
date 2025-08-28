@@ -32,7 +32,9 @@ class FakeApplicantsApi implements ApplicantsApi
 		$applicantData = $this->cache->get("{$applicantId}:applicant");
 		$applicantEmail = Arr::get($applicantData, 'email', '');
 
-		if (
+		if (Str::contains($applicantEmail, 'always_undetermined_snappt')) {
+			$applicantDto = $this->getReadyAndUndeterminedApplicantDto($applicantData, $applicantId);
+		} elseif (
 			Str::contains($applicantEmail, 'undetermined_snappt') &&
 			!Arr::get($applicantData, 'applicantIdentifier')
 		) {
@@ -60,7 +62,9 @@ class FakeApplicantsApi implements ApplicantsApi
 		$applicantData = $this->cache->get("{$applicantId}:applicant");
 		$applicantEmail = Arr::get($applicantData, 'email', '');
 
-		if (
+		if (Str::contains($applicantEmail, 'always_undetermined_snappt')) {
+			$content = (string) file_get_contents(__DIR__ . '/../../resources/reports/Sample Report_Clean docs with Income Error.pdf');
+		} elseif (
 			Str::contains($applicantEmail, 'undetermined_snappt') &&
 			!Arr::get($applicantData, 'applicantIdentifier')
 		) {
