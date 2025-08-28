@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/tenantcloud/php-snappt-sdk/compare/v2.0.0...v2.0.1) (2025-08-28)
+
+
+### Bug Fixes
+
+* Add always_undetermined_snappt fake email ([#13](https://github.com/tenantcloud/php-snappt-sdk/issues/13)) ([a574ea1](https://github.com/tenantcloud/php-snappt-sdk/commit/a574ea1be98d3f1fd3dbc57e4344032d37390e9c))
+
 # [2.0.0](https://github.com/tenantcloud/php-snappt-sdk/compare/v1.0.1...v2.0.0) (2025-08-20)
 
 
