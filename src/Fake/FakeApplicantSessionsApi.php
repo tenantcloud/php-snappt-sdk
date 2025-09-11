@@ -12,6 +12,7 @@ use TenantCloud\Snappt\ApplicantSessions\DTO\SessionDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 use TenantCloud\Snappt\Exceptions\NotFoundException;
+use TenantCloud\Snappt\Exceptions\SnapptDocumentUploadException;
 
 class FakeApplicantSessionsApi implements ApplicantSessionsApi
 {
@@ -62,6 +63,12 @@ class FakeApplicantSessionsApi implements ApplicantSessionsApi
 	{
 		if (!$this->cache->has("{$sessionToken}:applicant:session")) {
 			throw new NotFoundException();
+		}
+
+		$applicantEmail = Arr::get($this->cache->get("{$sessionToken}:applicant:session"), 'email', '');
+
+		if (Str::contains($applicantEmail, 'snappt_fail_documents')) {
+			throw new SnapptDocumentUploadException(basename($filePath), 'This PDF appears to be a print-to-PDF. Please download an original PDF from your bank or financial institution.');
 		}
 
 		$id = Arr::get($this->cache->get("{$sessionToken}:applicant:session"), 'id');

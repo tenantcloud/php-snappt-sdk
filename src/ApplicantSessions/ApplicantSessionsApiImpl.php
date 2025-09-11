@@ -3,6 +3,7 @@
 namespace TenantCloud\Snappt\ApplicantSessions;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
 use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
@@ -12,6 +13,7 @@ use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 use TenantCloud\Snappt\Client\RequestHelper;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
+use TenantCloud\Snappt\Exceptions\SnapptDocumentUploadException;
 
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
@@ -73,30 +75,42 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 
 	public function uploadDocument(DocumentType $documentType, string $sessionToken, string $filePath): DocumentDTO
 	{
-		$jsonResponse = $this->httpClient->post(
-			self::UPLOAD_DOCUMENT_API,
-			[
-				RequestOptions::HEADERS => array_merge(
-					$this->setUnauthenticatedSessionToken($sessionToken),
-					['Accept' => 'application/json']
-				),
-				RequestOptions::MULTIPART => [
-					[
-						'name'     => 'type',
-						'contents' => $documentType->value,
+		try {
+			$jsonResponse = $this->httpClient->post(
+				self::UPLOAD_DOCUMENT_API,
+				[
+					RequestOptions::HEADERS => array_merge(
+						$this->setUnauthenticatedSessionToken($sessionToken),
+						['Accept' => 'application/json']
+					),
+					RequestOptions::MULTIPART => [
+						[
+							'name'     => 'type',
+							'contents' => $documentType->value,
+						],
+						[
+							'name'     => 'fileName',
+							'contents' => basename($filePath),
+						],
+						[
+							'name'     => 'upload',
+							'contents' => fopen($filePath, 'r'),
+							'filename' => basename($filePath),
+						],
 					],
-					[
-						'name'     => 'fileName',
-						'contents' => basename($filePath),
-					],
-					[
-						'name'     => 'upload',
-						'contents' => fopen($filePath, 'r'),
-						'filename' => basename($filePath),
-					],
-				],
-			]
-		);
+				]
+			);
+		} catch (RequestException $exception) {
+			if ($exception->getResponse()->getStatusCode() === 422) {
+				$error = psr_response_to_json($exception->getResponse());
+				$errorMessage = $error['error'] ?? 'Failed to upload document.';
+				$filename = basename($filePath);
+
+				throw new SnapptDocumentUploadException($filename, $errorMessage);
+			}
+
+			throw $exception;
+		}
 
 		$response = (array) psr_response_to_json($jsonResponse);
 
