@@ -68,7 +68,7 @@ class FakeApplicantSessionsApi implements ApplicantSessionsApi
 		$applicantEmail = Arr::get($this->cache->get("{$sessionToken}:applicant:session"), 'email', '');
 
 		if (Str::contains($applicantEmail, 'snappt_fail_documents')) {
-			throw new SnapptDocumentUploadException(basename($filePath), 'This PDF appears to be a print-to-PDF. Please download an original PDF from your bank or financial institution.');
+			throw new SnapptDocumentUploadException(basename($filePath), [], 'This PDF appears to be a print-to-PDF. Please download an original PDF from your bank or financial institution.');
 		}
 
 		$id = Arr::get($this->cache->get("{$sessionToken}:applicant:session"), 'id');
