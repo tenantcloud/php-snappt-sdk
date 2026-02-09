@@ -101,12 +101,13 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 				]
 			);
 		} catch (RequestException $exception) {
-			if ($exception->getResponse()->getStatusCode() === 422) {
+			if (in_array($exception->getResponse()->getStatusCode(), [422, 400])) {
 				$error = psr_response_to_json($exception->getResponse());
 				$errorMessage = $error['error'] ?? 'Failed to upload document.';
+				$failedChecks = $error['failedChecks'] ?? [];
 				$filename = basename($filePath);
 
-				throw new SnapptDocumentUploadException($filename, $errorMessage);
+				throw new SnapptDocumentUploadException($filename, $failedChecks, $errorMessage);
 			}
 
 			throw $exception;
