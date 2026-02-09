@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/tenantcloud/php-snappt-sdk/compare/v2.0.2...v2.0.3) (2026-02-09)
+
+
+### Bug Fixes
+
+* Pass failedChecks to upload document exception ([#15](https://github.com/tenantcloud/php-snappt-sdk/issues/15)) ([f8bf372](https://github.com/tenantcloud/php-snappt-sdk/commit/f8bf37274fe5166de2711f58488b8b9b672520de))
+
 ## [2.0.2](https://github.com/tenantcloud/php-snappt-sdk/compare/v2.0.1...v2.0.2) (2025-09-11)
 
 
