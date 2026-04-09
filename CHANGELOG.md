@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/tenantcloud/php-snappt-sdk/compare/v2.0.3...v2.0.4) (2026-04-09)
+
+
+### Bug Fixes
+
+* Small api changes ([#16](https://github.com/tenantcloud/php-snappt-sdk/issues/16)) ([40113ef](https://github.com/tenantcloud/php-snappt-sdk/commit/40113ef0bc094ae54e6402dbd65d58707dade524))
+
 ## [2.0.3](https://github.com/tenantcloud/php-snappt-sdk/compare/v2.0.2...v2.0.3) (2026-02-09)
 
 
