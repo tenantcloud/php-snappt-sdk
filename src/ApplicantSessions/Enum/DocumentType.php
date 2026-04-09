@@ -6,4 +6,5 @@ enum DocumentType: string
 {
 	case PAY_STUB = 'PAYSTUB';
 	case BANK_STATEMENT = 'BANK_STATEMENT';
+	case OTHER = 'OTHER';
 }
