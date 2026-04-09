@@ -100,7 +100,7 @@ class FakeApplicantsApi implements ApplicantsApi
 			->setInsertedAt('2025-07-08T18:18:25.000Z')
 			->setUpdatedAt('2025-07-08T18:18:25.000Z')
 			->setStatus('READY')
-			->setResult('CLEAN')
+			->setResult('PASSED')
 			->setApplicantDetailId(Arr::get($applicantData, 'applicantDetailId'))
 			->setDocuments([
 				DocumentDTO::create()
@@ -108,7 +108,7 @@ class FakeApplicantsApi implements ApplicantsApi
 					->setFileName('/proofs/' . $docId1 . '/file')
 					->setInsertedAt('2025-07-08T18:18:25.000Z')
 					->setType('PAYSTUB')
-					->setResult('CLEAN')
+					->setResult('PASSED')
 					->setSourceType('DOCUMENT_UPLOAD')
 					->setIncomeVerificationDetails(
 						DocumentIncomeVerificationDetailDTO::create()
@@ -123,21 +123,21 @@ class FakeApplicantsApi implements ApplicantsApi
 					->setFileName('/proofs/' . $docId2 . '/file')
 					->setInsertedAt('2025-07-08T18:18:25.000Z')
 					->setType('BANK_STATEMENT')
-					->setResult('CLEAN')
+					->setResult('PASSED')
 					->setSourceType('DOCUMENT_UPLOAD'),
 				DocumentDTO::create()
 					->setId($docId3 = Uuid::uuid4()->toString())
 					->setFileName('/proofs/' . $docId3 . '/file')
 					->setInsertedAt('2025-07-08T18:18:25.000Z')
 					->setType('BANK_STATEMENT')
-					->setResult('CLEAN')
+					->setResult('PASSED')
 					->setSourceType('DOCUMENT_UPLOAD'),
 				DocumentDTO::create()
 					->setId($docId4 = Uuid::uuid4()->toString())
 					->setFileName('/proofs/' . $docId4 . '/file')
 					->setInsertedAt('2025-07-08T18:18:25.000Z')
 					->setType('PAYSTUB')
-					->setResult('CLEAN')
+					->setResult('PASSED')
 					->setSourceType('DOCUMENT_UPLOAD')
 					->setIncomeVerificationDetails(
 						DocumentIncomeVerificationDetailDTO::create()
@@ -178,7 +178,7 @@ class FakeApplicantsApi implements ApplicantsApi
 			->setInsertedAt('2025-07-08T18:19:52.000Z')
 			->setUpdatedAt('2025-07-08T18:19:52.000Z')
 			->setStatus('READY')
-			->setResult('EDITED')
+			->setResult('FAILED')
 			->setApplicantDetailId(Arr::get($applicantData, 'applicantDetailId'))
 			->setDocuments([
 				DocumentDTO::create()
@@ -186,28 +186,28 @@ class FakeApplicantsApi implements ApplicantsApi
 					->setFileName('/proofs/' . $docId1 . '/file')
 					->setInsertedAt('2025-07-08T18:19:52.000Z')
 					->setType('PAYSTUB')
-					->setResult('EDITED')
+					->setResult('FAILED')
 					->setSourceType('DOCUMENT_UPLOAD'),
 				DocumentDTO::create()
 					->setId($docId2 = Uuid::uuid4()->toString())
 					->setFileName('/proofs/' . $docId2 . '/file')
 					->setInsertedAt('2025-07-08T18:19:52.000Z')
 					->setType('BANK_STATEMENT')
-					->setResult('EDITED')
+					->setResult('FAILED')
 					->setSourceType('DOCUMENT_UPLOAD'),
 				DocumentDTO::create()
 					->setId($docId3 = Uuid::uuid4()->toString())
 					->setFileName('/proofs/' . $docId3 . '/file')
 					->setInsertedAt('2025-07-08T18:19:52.000Z')
 					->setType('PAYSTUB')
-					->setResult('EDITED')
+					->setResult('FAILED')
 					->setSourceType('DOCUMENT_UPLOAD'),
 				DocumentDTO::create()
 					->setId($docId4 = Uuid::uuid4()->toString())
 					->setFileName('/proofs/' . $docId4 . '/file')
 					->setInsertedAt('2025-07-08T18:19:52.000Z')
 					->setType('BANK_STATEMENT')
-					->setResult('EDITED')
+					->setResult('FAILED')
 					->setSourceType('DOCUMENT_UPLOAD'),
 			]);
 	}
