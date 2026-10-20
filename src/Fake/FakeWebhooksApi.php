@@ -12,9 +12,7 @@ use TenantCloud\Snappt\Webhooks\WebhooksApi;
 
 class FakeWebhooksApi implements WebhooksApi
 {
-	public function __construct(
-		private readonly Repository $cache
-	) {}
+	public function __construct(private readonly Repository $cache) {}
 
 	public function list(): WebhooksDTO
 	{

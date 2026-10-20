@@ -11,9 +11,7 @@ use TenantCloud\Snappt\Webhooks\WebhooksApi;
 
 class FakeSnapptClient implements SnapptClient
 {
-	public function __construct(
-		private readonly Repository $cache
-	) {}
+	public function __construct(private readonly Repository $cache) {}
 
 	public function applicantSessions(): ApplicantSessionsApi
 	{

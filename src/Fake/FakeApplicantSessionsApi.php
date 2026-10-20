@@ -19,9 +19,7 @@ use Throwable;
 
 class FakeApplicantSessionsApi implements ApplicantSessionsApi
 {
-	public function __construct(
-		private readonly Repository $cache
-	) {}
+	public function __construct(private readonly Repository $cache) {}
 
 	public function createSession(CreateSessionDTO $createSessionDTO): SessionDTO
 	{
