@@ -4,8 +4,10 @@ namespace TenantCloud\Snappt\ApplicantSessions;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
+use Psr\Http\Message\ResponseInterface;
 use TenantCloud\Snappt\ApplicantSessions\DTO\CreateSessionDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\DocumentDTO;
 use TenantCloud\Snappt\ApplicantSessions\DTO\SessionDTO;
@@ -14,6 +16,7 @@ use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 use TenantCloud\Snappt\Client\RequestHelper;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
 use TenantCloud\Snappt\Exceptions\SnapptDocumentUploadException;
+use Throwable;
 
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
@@ -75,8 +78,13 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 
 	public function uploadDocument(DocumentType $documentType, string $sessionToken, string $filePath): DocumentDTO
 	{
-		try {
-			$jsonResponse = $this->httpClient->post(
+		return $this->uploadDocumentAsync($documentType, $sessionToken, $filePath)->wait();
+	}
+
+	public function uploadDocumentAsync(DocumentType $documentType, string $sessionToken, string $filePath): PromiseInterface
+	{
+		return $this->httpClient
+			->postAsync(
 				self::UPLOAD_DOCUMENT_API,
 				[
 					RequestOptions::HEADERS => array_merge(
@@ -99,34 +107,37 @@ class ApplicantSessionsApiImpl implements ApplicantSessionsApi
 						],
 					],
 				]
+			)
+			->then(
+				function (ResponseInterface $jsonResponse) {
+					$response = (array) psr_response_to_json($jsonResponse);
+
+					if (Arr::has($response, 'error')) {
+						$errorMessage = sprintf(
+							'Error: %s. Status code: %s. Failed checks: %s',
+							$response['error'],
+							$response['statusCode'] ?? 'none',
+							isset($response['failedChecks']) ? implode(', ', (array) $response['failedChecks']) : 'none'
+						);
+
+						throw new ErrorResponseException(self::UPLOAD_DOCUMENT_API, $errorMessage);
+					}
+
+					return DocumentDTO::from($response);
+				},
+				function (Throwable $exception) use ($filePath) {
+					if ($exception instanceof RequestException && in_array($exception->getResponse()?->getStatusCode(), [422, 400])) {
+						$error = psr_response_to_json($exception->getResponse());
+						$errorMessage = $error['error'] ?? 'Failed to upload document.';
+						$failedChecks = $error['failedChecks'] ?? [];
+						$filename = basename($filePath);
+
+						throw new SnapptDocumentUploadException($filename, $failedChecks, $errorMessage);
+					}
+
+					throw $exception;
+				}
 			);
-		} catch (RequestException $exception) {
-			if (in_array($exception->getResponse()->getStatusCode(), [422, 400])) {
-				$error = psr_response_to_json($exception->getResponse());
-				$errorMessage = $error['error'] ?? 'Failed to upload document.';
-				$failedChecks = $error['failedChecks'] ?? [];
-				$filename = basename($filePath);
-
-				throw new SnapptDocumentUploadException($filename, $failedChecks, $errorMessage);
-			}
-
-			throw $exception;
-		}
-
-		$response = (array) psr_response_to_json($jsonResponse);
-
-		if (Arr::has($response, 'error')) {
-			$errorMessage = sprintf(
-				'Error: %s. Status code: %s. Failed checks: %s',
-				$response['error'],
-				$response['statusCode'] ?? 'none',
-				isset($response['failedChecks']) ? implode(', ', (array) $response['failedChecks']) : 'none'
-			);
-
-			throw new ErrorResponseException(self::UPLOAD_DOCUMENT_API, $errorMessage);
-		}
-
-		return DocumentDTO::from($response);
 	}
 
 	public function submit(string $sessionToken): string
