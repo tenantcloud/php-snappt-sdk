@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/tenantcloud/php-snappt-sdk/compare/v2.0.4...v2.1.0) (2026-10-20)
+
+
+### Features
+
+* Add async document upload to applicant sessions API | UptcKTsd ([35cbc25](https://github.com/tenantcloud/php-snappt-sdk/commit/35cbc25bd828a68886743c873f9f363785de7eb0))
+
 ## [2.0.4](https://github.com/tenantcloud/php-snappt-sdk/compare/v2.0.3...v2.0.4) (2026-04-09)
 
 
