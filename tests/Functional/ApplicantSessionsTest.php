@@ -7,6 +7,7 @@ use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\ApplicantSessions\Enum\ApplicationType;
 use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 use TenantCloud\Snappt\Exceptions\ErrorResponseException;
+use TenantCloud\Snappt\Exceptions\SnapptDocumentUploadException;
 use Tests\TestCase;
 
 class ApplicantSessionsTest extends TestCase
@@ -130,6 +131,53 @@ class ApplicantSessionsTest extends TestCase
 				'session-token',
 				__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
 			);
+	}
+
+	public function testUploadDocumentAsyncSuccess(): void
+	{
+		$snapptClient = $this->mockResponse(
+			200,
+			(string) file_get_contents(__DIR__ . '/../resources/applicant-sessions/upload-document-success.json')
+		);
+
+		$document = $snapptClient
+			->applicantSessions()
+			->uploadDocumentAsync(
+				DocumentType::PAY_STUB,
+				'session-token',
+				__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
+			)
+			->wait();
+
+		$this->assertSame('bc535bcf-811e-45b3-84a2-112de8a5430e', $document->getId());
+		$this->assertSame('1537 Corinth Checking.pdf', $document->getFileName());
+	}
+
+	public function testUploadDocumentFailedChecks(): void
+	{
+		$snapptClient = $this->mockResponse(
+			422,
+			(string) json_encode([
+				'error'        => 'Duplicate document.',
+				'failedChecks' => ['DuplicateDocumentError'],
+			])
+		);
+
+		try {
+			$snapptClient
+				->applicantSessions()
+				->uploadDocument(
+					DocumentType::PAY_STUB,
+					'session-token',
+					__DIR__ . '/../resources/applicant-sessions/documents/1537 Corinth Checking.pdf',
+				);
+
+			$this->fail('Expected SnapptDocumentUploadException to be thrown.');
+		} catch (SnapptDocumentUploadException $e) {
+			$this->assertSame('Duplicate document.', $e->getMessage());
+			$this->assertSame(['DuplicateDocumentError'], $e->getFailedChecks());
+			$this->assertSame('1537 Corinth Checking.pdf', $e->getSnapptFilename());
+		}
 	}
 
 	public function testSubmitSuccess(): void

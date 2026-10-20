@@ -11,9 +11,7 @@ use TenantCloud\Snappt\Properties\PropertiesApi;
 
 class FakePropertiesApi implements PropertiesApi
 {
-	public function __construct(
-		private readonly Repository $cache
-	) {}
+	public function __construct(private readonly Repository $cache) {}
 
 	public function get(string $propertyId): PropertyDTO
 	{

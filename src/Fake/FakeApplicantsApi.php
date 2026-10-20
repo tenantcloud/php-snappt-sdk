@@ -19,9 +19,7 @@ use TenantCloud\Snappt\Exceptions\NotFoundException;
 
 class FakeApplicantsApi implements ApplicantsApi
 {
-	public function __construct(
-		private readonly Repository $cache
-	) {}
+	public function __construct(private readonly Repository $cache) {}
 
 	public function get(string $applicantId, bool $includeDocuments): ApplicantDTO
 	{

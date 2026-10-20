@@ -2,6 +2,8 @@
 
 namespace TenantCloud\Snappt\Fake;
 
+use GuzzleHttp\Promise\Create;
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -13,12 +15,11 @@ use TenantCloud\Snappt\ApplicantSessions\DTO\UpdateApplicationDTO;
 use TenantCloud\Snappt\ApplicantSessions\Enum\DocumentType;
 use TenantCloud\Snappt\Exceptions\NotFoundException;
 use TenantCloud\Snappt\Exceptions\SnapptDocumentUploadException;
+use Throwable;
 
 class FakeApplicantSessionsApi implements ApplicantSessionsApi
 {
-	public function __construct(
-		private readonly Repository $cache
-	) {}
+	public function __construct(private readonly Repository $cache) {}
 
 	public function createSession(CreateSessionDTO $createSessionDTO): SessionDTO
 	{
@@ -88,6 +89,15 @@ class FakeApplicantSessionsApi implements ApplicantSessionsApi
 		);
 
 		return $documentDto;
+	}
+
+	public function uploadDocumentAsync(DocumentType $documentType, string $sessionToken, string $filePath): PromiseInterface
+	{
+		try {
+			return Create::promiseFor($this->uploadDocument($documentType, $sessionToken, $filePath));
+		} catch (Throwable $e) {
+			return Create::rejectionFor($e);
+		}
 	}
 
 	public function submit(string $sessionToken): string
